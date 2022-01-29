@@ -2,7 +2,23 @@
   "name": "be-based",
   "version": "0.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "be-based.js",
+  "module": "be-based.js",
+  "keywords": [
+    "web components",
+    "web component",
+    "custom elements",
+    "custom element"
+  ],
+  "dependencies": {
+    "be-decorated": "0.0.71",
+    "be-hive": "0.0.20"
+  },
+  "devDependencies": {
+    "xtal-test": "0.0.55",
+    "@skypack/package-check": "0.2.2",
+    "@custom-elements-manifest/analyzer": "0.5.7"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
