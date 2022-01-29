@@ -6,9 +6,14 @@ be-based is a package that contains a client-side web component decorator, a tra
 
 ```html
 <template be-based='{
-    "a": {
-        "prepend": "https://www.supremecourt.gov/about/"
-    }
+    "rules": [
+        {
+            "selector": "a",
+            "attr": "href",
+            "ifNot": "^(http|https)",
+            "prependVal": "https://www.supremecourt.gov/about/"
+        }
+    ]
 }'>
     <a href="biographies.aspx#SOConnor">O'Connor, Sandra Day</a>
 </template>
@@ -18,9 +23,14 @@ transforms the template to:
 
 ```html
 <template is-based='{
-    "a": {
-        "prepend": "https://www.supremecourt.gov/about/"
-    }
+    "rules": [
+        {
+            "selector": "a",
+            "attr": "href",
+            "ifNot": "^(http|https)",
+            "prependVal": "https://www.supremecourt.gov/about/"
+        }
+    ]
 }'>
     <a href="https://www.supremecourt.gov/about/biographies.aspx#SOConnor">O'Connor, Sandra Day</a>
 </template>
