@@ -9,13 +9,13 @@ export interface BeBasedProps extends BeBasedVirtualProps{
 }
 
 export interface BeBasedRule {
-    selector: string,
-    attr: string,
-    ifNot: string,
-    prependVal: string,
+    selector?: string,
+    attr?: string,
+    ifNot?: string,
+    prependVal?: string,
 }
 
 export interface BeBasedActions{
-
+    onRules(self: this): void;
 }
 
