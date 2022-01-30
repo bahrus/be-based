@@ -1,6 +1,6 @@
 # be-based 
 
-be-based is a package that contains a client-side web component decorator, a trans-render transformer, and a HTMLRewriter class [TODO].
+be-based is a package that contains a client-side web component decorator, a generic transformer on a DOM Element, and a HTMLRewriter class [TODO].
 
 ## client-side decorator
 
@@ -34,4 +34,19 @@ transforms the template to:
 }'>
     <a href="https://www.supremecourt.gov/about/biographies.aspx#SOConnor">O'Connor, Sandra Day</a>
 </template>
+```
+
+The element be-based can decorate is not limited to template elements.  It can be applied to any DOM element.
+
+## Generic transformer
+
+```TypeScript
+import { BeBasedVirtualProps } from 'be-based/types';
+
+async function processBeBasedRules(props: BeBasedVirtualProps | undefined, target: Element){
+    if(props === undefined) return;
+    const {processRules} = await import('be-based/processRules.js');
+    processRules({proxy: target, rules: beBased.rules});
+}
+
 ```
