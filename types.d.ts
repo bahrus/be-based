@@ -4,7 +4,7 @@ export interface BeBasedVirtualProps{
     rules?: BeBasedRule[],
     beDecorProps?: BeDecoratedProps,
     recursive?: boolean,
-    once?: boolean,
+    beVigilant?: boolean,
 }
 
 export interface BeBasedProps extends BeBasedVirtualProps{
