@@ -30,7 +30,7 @@
     ".": "./be-based.js",
     "./be-based.js": "./be-based.js",
     "./processRules.js": "./processRules.js",
-    "./trPlugin.js": "./trPlugin.js",
+    "./trPlugin.js": "./trPlugin.js"
   },
   "files": [
     "*.*"
