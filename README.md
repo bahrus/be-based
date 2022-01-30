@@ -46,7 +46,7 @@ import { BeBasedVirtualProps } from 'be-based/types';
 async function processBeBasedRules(props: BeBasedVirtualProps | undefined, target: Element){
     if(props === undefined) return;
     const {processRules} = await import('be-based/processRules.js');
-    processRules({proxy: target, rules: beBased.rules});
+    processRules({proxy: target, rules: props.rules});
 }
 
 ```
