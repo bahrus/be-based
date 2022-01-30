@@ -6,6 +6,9 @@ import {processRules} from './processRules.js';
 
 
 export class BeBasedController implements BeBasedActions{
+    intro(proxy: Element & BeBasedVirtualProps, target: Element, beDecorProps: BeDecoratedProps<any, any>): void {
+        proxy.beDecorProps = beDecorProps;
+    }
     onRules({rules, proxy}: this): void {
         processRules({rules, proxy});
     }
@@ -26,7 +29,8 @@ define<BeBasedProps & BeDecoratedProps<BeBasedProps, BeBasedActions>, BeBasedAct
             upgrade,
             ifWantsToBe,
             forceVisible: ['template'],
-            virtualProps: ['rules'],
+            virtualProps: ['rules', 'beDecorProps', 'recursive'],
+            intro: 'intro',
         },
         actions:{
             onRules: 'rules'

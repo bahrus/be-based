@@ -3,15 +3,28 @@ import { BeBasedProps, BeBasedRule } from "./types";
 const defaultRule: BeBasedRule = {
     ifNot: "^(http|https)",
 };
-export const processRules = ({rules, proxy}: BeBasedProps): void => {
+export const processRules = ({rules, proxy, recursive, beDecorProps}: BeBasedProps): void => {
     for(const rule of rules!){
         const newRule = {...defaultRule, ...rule};
-        const fragment = proxy.localName === "template" ? (proxy as HTMLTemplateElement).content : proxy;
+        const isTempl = proxy.localName === "template";
+        const fragment = isTempl ? (proxy as HTMLTemplateElement).content : proxy;
         const elements = Array.from(fragment.querySelectorAll(newRule.selector!));
         for(const element of elements){
             const attr = element.getAttribute(newRule.attr!);
             if(!newRule.ifNot || !newRule.ifNot.match(new RegExp(attr!))){
                 element.setAttribute(newRule.attr!, newRule.prependVal! + attr!);
+            }
+        }
+        if(isTempl && recursive && beDecorProps !== undefined){
+            fragment.querySelectorAll(`[be-${beDecorProps.ifWantsToBe}]`).forEach(el => {
+                const beDecorChildAttr = el.getAttribute(`be-${beDecorProps!.ifWantsToBe}`);
+                const beDecorChildProps = JSON.parse(beDecorChildAttr!);
+                processRules({
+                    rules: beDecorChildProps.rules,
+                    proxy: el,
+                    recursive: beDecorChildProps.recursive,
+                    beDecorProps: beDecorProps,
+                });
             }
         }
     }

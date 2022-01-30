@@ -1,7 +1,9 @@
 import {BeDecoratedProps} from 'be-decorated/types';
 
 export interface BeBasedVirtualProps{
-    rules?: BeBasedRule[]
+    rules?: BeBasedRule[],
+    beDecorProps?: BeDecoratedProps,
+    recursive?: boolean,
 }
 
 export interface BeBasedProps extends BeBasedVirtualProps{
@@ -17,5 +19,6 @@ export interface BeBasedRule {
 
 export interface BeBasedActions{
     onRules(self: this): void;
+    intro(proxy: Element & BeBasedVirtualProps, target: Element, beDecorProps: BeDecoratedProps): void;
 }
 

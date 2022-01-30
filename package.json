@@ -12,7 +12,8 @@
   ],
   "dependencies": {
     "be-decorated": "0.0.71",
-    "be-hive": "0.0.20"
+    "be-hive": "0.0.20",
+    "trans-render": "0.0.450"
   },
   "devDependencies": {
     "xtal-test": "0.0.55",
@@ -28,7 +29,8 @@
   "exports": {
     ".": "./be-based.js",
     "./be-based.js": "./be-based.js",
-    "./processRules.js": "./processRules.js"
+    "./processRules.js": "./processRules.js",
+    "./trPlugin.js": "./trPlugin.js",
   },
   "files": [
     "*.*"

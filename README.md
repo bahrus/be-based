@@ -1,6 +1,6 @@
 # be-based 
 
-be-based is a package that contains a client-side web component decorator, a generic transformer on a DOM Element, and a HTMLRewriter class [TODO].
+be-based is a package that contains a client-side web component decorator, a [trans-render plugin](https://github.com/bahrus/trans-render#extending-trans-render-with-declarative-syntax----part-ii), and a [HTMLRewriter class](https://discourse.wicg.io/t/proposal-support-cloudflares-htmlrewriter-api-in-workers/5721).
 
 ## client-side decorator
 
@@ -49,4 +49,10 @@ async function processBeBasedRules(props: BeBasedVirtualProps | undefined, targe
     processRules({proxy: target, rules: props.rules});
 }
 
+```
+
+## trans-render plugin
+
+```TypeScript
+import {trPlugin} from 'trans-render/trPlugin.js'
 ```
