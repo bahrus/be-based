@@ -1,7 +1,7 @@
 {
   "name": "be-based",
   "version": "0.0.1",
-  "description": "",
+  "description": "be-based is a package that contains a client-side web component decorator, a trans-render transformer [TODO], and a HTMLRewriter class [TODO].",
   "main": "be-based.js",
   "module": "be-based.js",
   "keywords": [
@@ -25,11 +25,20 @@
     "package-check": "package-check",
     "doc": "custom-elements-manifest analyze"
   },
+  "exports":{
+    ".": "./be-based.js",
+    "./be-based.js": "./be-based.js",
+    "./processRules.js": "./processRules.js"
+  },
+  "files": [
+    "*.*"
+  ],
+  "types": "types.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bahrus/be-based.git"
   },
-  "author": "",
+  "author": "anderson.bruce.b@gmail.com",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/bahrus/be-based/issues"
