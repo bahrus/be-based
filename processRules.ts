@@ -25,7 +25,7 @@ export const processRules = ({rules, proxy, recursive, beDecorProps}: BeBasedPro
                     recursive: beDecorChildProps.recursive,
                     beDecorProps: beDecorProps,
                 });
-            }
+            });
         }
     }
 }
