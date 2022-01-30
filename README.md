@@ -1,6 +1,6 @@
 # be-based 
 
-be-based is a package that contains a client-side web component decorator, a trans-render transformer [TODO], and a HTMLRewriter class [TODO].
+be-based is a package that contains a client-side web component decorator, a trans-render transformer, and a HTMLRewriter class [TODO].
 
 ## client-side decorator
 
