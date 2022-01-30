@@ -1,6 +1,6 @@
 {
   "name": "be-based",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "be-based is a package that contains a client-side web component decorator, a trans-render transformer [TODO], and a HTMLRewriter class [TODO].",
   "main": "be-based.js",
   "module": "be-based.js",
@@ -25,7 +25,7 @@
     "package-check": "package-check",
     "doc": "custom-elements-manifest analyze"
   },
-  "exports":{
+  "exports": {
     ".": "./be-based.js",
     "./be-based.js": "./be-based.js",
     "./processRules.js": "./processRules.js"
