@@ -12,7 +12,7 @@ export const processRules = ({rules, proxy, recursive, beDecorProps}: BeBasedPro
         for(const element of elements){
             const attr = element.getAttribute(newRule.attr!);
             if(!newRule.ifNot || !newRule.ifNot.match(new RegExp(attr!))){
-                element.setAttribute(newRule.attr!, newRule.prependVal! + attr!);
+                element.setAttribute(newRule.attr!, newRule.baseHref! + attr!);
             }
         }
         if(isTempl && recursive && beDecorProps !== undefined){

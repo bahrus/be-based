@@ -15,7 +15,7 @@ export interface BeBasedRule {
     selector?: string,
     attr?: string,
     ifNot?: string,
-    prependVal?: string,
+    baseHref?: string,
 }
 
 export interface BeBasedActions{

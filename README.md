@@ -1,6 +1,10 @@
 # be-based 
 
-be-based is a package that contains a client-side web component decorator, a [trans-render plugin](https://github.com/bahrus/trans-render#extending-trans-render-with-declarative-syntax----part-ii), and a [HTMLRewriter class](https://discourse.wicg.io/t/proposal-support-cloudflares-htmlrewriter-api-in-workers/5721).
+be-based is a package that allows a DOM document fragment filled with relative URL paths, to be adjusted based on a base URL.  The package contains:
+
+1.  A client-side web component decorator, allowing the adjustments to be made to a live DOM tree,
+2.  A [trans-render plugin](https://github.com/bahrus/trans-render#extending-trans-render-with-declarative-syntax----part-ii), enabling the adjustments to be made while cloning a Template, and
+3.  Will contain a [HTMLRewriter class](https://discourse.wicg.io/t/proposal-support-cloudflares-htmlrewriter-api-in-workers/5721) for use in a Cloudflare Worker, and perhaps a service worker someday. [TODO]
 
 ## client-side decorator
 
@@ -11,7 +15,7 @@ be-based is a package that contains a client-side web component decorator, a [tr
             "selector": "a",
             "attr": "href",
             "ifNot": "^(http|https)",
-            "prependVal": "https://www.supremecourt.gov/about/"
+            "baseHref": "https://www.supremecourt.gov/about/"
         }
     ]
 }'>
@@ -28,7 +32,7 @@ transforms the template to:
             "selector": "a",
             "attr": "href",
             "ifNot": "^(http|https)",
-            "prependVal": "https://www.supremecourt.gov/about/"
+            "baseHref": "https://www.supremecourt.gov/about/"
         }
     ]
 }'>
