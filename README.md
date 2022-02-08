@@ -44,29 +44,23 @@ The only question is "when does this happen"?  This packages allows it to happen
 
 The package provides an entry point (trPlugin.js) to allow this to be done during template instantiation.
 
-In particular, it can be incorporated via a single line config setting into a [DTR-based](https://github.com/bahrus/trans-render#declarative-trans-render-syntax-via-plugins) template instantiation.
+In particular, it can be incorporated via a single line declarative config setting into a [DTR-based](https://github.com/bahrus/trans-render#declarative-trans-render-syntax-via-plugins) template instantiation.
 
 But it is a "non-blocking" dependency.  If the library hasn't been loaded by the time the template instantiation commences, *Arazorik ez*, let the second avenue for the transformation happen in the live DOM:
 
 ### As a custom attribute / decorator / behavior
 
-The package contains:
+be-based is one of a growing family of [be-decorated](https://github.com/bahrus/be-decorated) web component based custom attributes /  behaviors / decorators / directives.
 
-1.  A client-side web component decorator, allowing the adjustments to be made to a live DOM tree,
-2.  A [trans-render plugin](https://github.com/bahrus/trans-render#extending-trans-render-with-declarative-syntax----part-ii), enabling the adjustments to be made while cloning a Template, and
-3.  Will contain a [HTMLRewriter class](https://discourse.wicg.io/t/proposal-support-cloudflares-htmlrewriter-api-in-workers/5721) for use in a Cloudflare Worker, and perhaps a service worker someday. [TODO]
+By referencing be-based.js, elements with attribute be-based will be discovered and transformed.
 
- 
-
-## client-side decorator
-
-
-
-
+Or we can refence index.js, which loads both trPlugin.js and be-based.js in parallel.
 
 The element be-based can decorate is not limited to template elements.  It can be applied to any DOM element.
 
-## Generic transformer
+### Programmatically
+
+If using a non trans-render based template instantiation library, the following api allows the rules to be processed programmatically.
 
 ```TypeScript
 import { BeBasedVirtualProps } from 'be-based/types';
@@ -79,8 +73,9 @@ async function processBeBasedRules(props: BeBasedVirtualProps | undefined, targe
 
 ```
 
-## trans-render plugin
+### As a cloudflare worker [TODO]
 
-```TypeScript
-import {trPlugin} from 'trans-render/trPlugin.js'
-```
+### As a service worker [TODO]
+
+W3C [willing](https://discourse.wicg.io/t/proposal-support-cloudflares-htmlrewriter-api-in-workers/5721).
+
