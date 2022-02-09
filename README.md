@@ -58,7 +58,7 @@ Or we can refence index.js, which loads both trPlugin.js and be-based.js in para
 
 The element be-based can decorate is not limited to template elements.  It can be applied to any DOM element.
 
-### Programmatically
+### During Template Instantiation, But Programmatically
 
 If using a non trans-render based template instantiation library, the following api allows the rules to be processed programmatically.
 
@@ -73,9 +73,10 @@ async function processBeBasedRules(props: BeBasedVirtualProps | undefined, targe
 
 ```
 
-### As a cloudflare worker [TODO]
 
-### As a service worker [TODO]
+### As a cloudflare HTMLRewriter Class [TODO]
+
+### As a service worker helper [TODO]
 
 W3C [willing](https://discourse.wicg.io/t/proposal-support-cloudflares-htmlrewriter-api-in-workers/5721).
 
