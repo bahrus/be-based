@@ -11,14 +11,14 @@
     "custom element"
   ],
   "dependencies": {
-    "be-decorated": "0.0.113",
-    "be-hive": "0.0.45",
-    "trans-render": "0.0.536"
+    "be-decorated": "0.0.128",
+    "be-hive": "0.0.50",
+    "trans-render": "0.0.557"
   },
   "devDependencies": {
-    "may-it-serve": "0.0.0",
+    "may-it-serve": "0.0.2",
     "@skypack/package-check": "0.2.2",
-    "@custom-elements-manifest/analyzer": "0.5.7"
+    "@custom-elements-manifest/analyzer": "0.6.4"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
