@@ -1,15 +1,22 @@
-import {BeDecoratedProps} from 'be-decorated/types';
+import {BeDecoratedProps, MinimalProxy} from 'be-decorated/types';
 
-export interface BeBasedVirtualProps{
+export interface EndUserProps{
     rules?: BeBasedRule[],
-    beDecorProps?: BeDecoratedProps,
     recursive?: boolean,
     beVigilant?: boolean,
 }
 
-export interface BeBasedProps extends BeBasedVirtualProps{
-    proxy:  Element & BeBasedVirtualProps,
+export interface VirtualProps extends EndUserProps, MinimalProxy{
+    beDecorProps?: BeDecoratedProps,
 }
+
+export type Proxy = Element & VirtualProps;
+
+export interface ProxyProps extends VirtualProps{
+    proxy:  Proxy,
+}
+
+export type PP = ProxyProps;
 
 export interface BeBasedRule {
     selector?: string,
@@ -18,8 +25,8 @@ export interface BeBasedRule {
     baseHref?: string,
 }
 
-export interface BeBasedActions{
-    onRules(self: this): void;
-    intro(proxy: Element & BeBasedVirtualProps, target: Element, beDecorProps: BeDecoratedProps): void;
+export interface Actions{
+    onRules(pp: PP): void;
+    intro(proxy: Proxy, target: Element, beDecorProps: BeDecoratedProps): void;
 }
 

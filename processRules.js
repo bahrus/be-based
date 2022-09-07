@@ -1,11 +1,11 @@
 const defaultRule = {
     ifNot: "^(http|https)",
 };
-export const processRules = ({ rules, proxy, recursive, beDecorProps }) => {
+export const processRules = ({ rules, proxy, recursive, beDecorProps, self }) => {
     for (const rule of rules) {
         const newRule = { ...defaultRule, ...rule };
-        const isTempl = proxy.localName === "template";
-        const fragment = isTempl ? proxy.content : proxy;
+        const isTempl = self.localName === "template";
+        const fragment = isTempl ? self.content : proxy;
         const elements = Array.from(fragment.querySelectorAll(newRule.selector));
         for (const element of elements) {
             const attr = element.getAttribute(newRule.attr);
@@ -19,7 +19,8 @@ export const processRules = ({ rules, proxy, recursive, beDecorProps }) => {
                 const beDecorChildProps = JSON.parse(beDecorChildAttr);
                 processRules({
                     rules: beDecorChildProps.rules,
-                    proxy: el,
+                    self: el,
+                    proxy,
                     recursive: beDecorChildProps.recursive,
                     beDecorProps: beDecorProps,
                 });

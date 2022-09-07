@@ -1,20 +1,19 @@
-import {BeBasedVirtualProps, BeBasedActions, BeBasedProps, BeBasedRule} from './types';
+import {VirtualProps, Actions, Proxy, PP, BeBasedRule} from './types';
 import {define, BeDecoratedProps} from 'be-decorated/be-decorated.js';
 import {register} from 'be-hive/register.js';
 import {processRules} from './processRules.js';
 
 
 
-export class BeBasedController implements BeBasedActions{
-    intro(proxy: Element & BeBasedVirtualProps, target: Element, beDecorProps: BeDecoratedProps<any, any>): void {
+export class BeBased implements Actions{
+    intro(proxy: Element & VirtualProps, target: Element, beDecorProps: BeDecoratedProps<any, any>): void {
         proxy.beDecorProps = beDecorProps;
     }
-    onRules({rules, proxy}: this): void {
-        processRules({rules, proxy});
+    onRules(pp: PP): void {
+        processRules(pp);
     }
 }
 
-export interface BeBasedController extends BeBasedProps{}
 
 const tagName = 'be-based';
 
@@ -22,7 +21,7 @@ const ifWantsToBe = 'based';
 
 const upgrade = '*';
 
-define<BeBasedProps & BeDecoratedProps<BeBasedProps, BeBasedActions>, BeBasedActions>({
+define<Proxy & BeDecoratedProps<Proxy, Actions>, Actions>({
     config:{
         tagName,
         propDefaults:{
@@ -37,7 +36,7 @@ define<BeBasedProps & BeDecoratedProps<BeBasedProps, BeBasedActions>, BeBasedAct
         }
     },
     complexPropDefaults:{
-        controller: BeBasedController,
+        controller: BeBased,
     }
 });
 
