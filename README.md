@@ -1,4 +1,4 @@
-# be-based 
+# be-based
 
 be-based is a package that allows a DOM document fragment filled with relative URL paths, to be adjusted based on a base URL.  
 
@@ -40,7 +40,7 @@ be-based transforms the template to:
 
 The only question is "when does this happen"?  This packages allows it to happen in two places, but hopefully two additional places will be added in the future.
 
-### During Template Instantiation
+###  Template Instantiation
 
 The package provides an entry point (trPlugin.js) to allow this to be done during template instantiation.
 

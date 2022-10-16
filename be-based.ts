@@ -1,5 +1,5 @@
 import {VirtualProps, Actions, Proxy, PP, BeBasedRule} from './types';
-import {define, BeDecoratedProps} from 'be-decorated/be-decorated.js';
+import {define, BeDecoratedProps} from 'be-decorated/DE.js';
 import {register} from 'be-hive/register.js';
 import {processRules} from './processRules.js';
 
