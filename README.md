@@ -46,7 +46,7 @@ be-based transforms the template to:
 
 ## When?
 
-The only question is "when does this happen"?  This packages allows it to happen in two places, but hopefully two additional places will be added in the future.
+The only question is "when does this happen"?  This packages allows it to happen in three places, but hopefully two additional places will be added in the future.
 
 ###  Template Instantiation
 
@@ -65,6 +65,10 @@ By referencing be-based.js, elements with attribute be-based will be discovered 
 Or we can refence index.js, which loads both trPlugin.js and be-based.js in parallel.
 
 The element be-based can decorate is not limited to template elements.  It can be applied to any DOM element.
+
+### Via a mutation observer [TODO]
+
+If using [stream-orator](https://github.com/bahrus/stream-orator) to stream HTML to a target element, be-based can be used to watch all new elements, and apply all the rules as they are discovered.
 
 ### During Template Instantiation, But Programmatically
 
