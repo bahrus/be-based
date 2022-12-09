@@ -1,10 +1,7 @@
 import {BeDecoratedProps, MinimalProxy} from 'be-decorated/types';
 
 export interface EndUserProps{
-    //rules?: BeBasedRule[],
     forAll?: string[],
-    //recursive?: boolean,
-    //beVigilant?: boolean,
     base?: string,
     
 }
@@ -21,16 +18,9 @@ export interface ProxyProps extends VirtualProps{
 
 export type PP = ProxyProps;
 
-// export interface BeBasedRule {
-//     selector?: string,
-//     attr?: string,
-//     ifNot?: string,
-//     baseHref?: string,
-// }
 
 export interface Actions{
-    // onRules(pp: PP): void;
-    // intro(proxy: Proxy, target: Element, beDecorProps: BeDecoratedProps): void;
     hydrate(pp: PP): void;
+    finale(): void;
 }
 

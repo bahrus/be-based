@@ -7,18 +7,9 @@
     <title>Document</title>
 </head>
 <body>
-    <template be-based='{
-        "rules": [
-            {
-                "selector": "a",
-                "attr": "href",
-                "ifNot": "^(http|https)",
-                "baseHref": "https://www.supremecourt.gov/about/"
-            }
-        ]
-    }'>
+    <div be-based="https://www.supremecourt.gov/about/">
         <a href="biographies.aspx#SOConnor">O'Connor, Sandra Day</a>
-    </template>
+    </div>
     <script type=importmap>
         {
             "imports": {

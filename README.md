@@ -13,9 +13,9 @@ be-based is a package that allows a DOM document fragment filled with relative U
 ## The syntax:
 
 ```html
-<template be-based="https://www.supremecourt.gov/about/">
+<div be-based="https://www.supremecourt.gov/about/">
     <a href="biographies.aspx#SOConnor">O'Connor, Sandra Day</a>
-<template>
+<div>
 ```
 
 is shorthand for:
@@ -29,12 +29,12 @@ is shorthand for:
 </template>
 ```
 
-be-based transforms the template to:
+be-based rewrites the attribute within:
 
 ```html
-<template is-based="https://www.supremecourt.gov/about/">
+<div is-based="https://www.supremecourt.gov/about/">
     <a href="https://www.supremecourt.gov/about/biographies.aspx#SOConnor">O'Connor, Sandra Day</a>
-</template>
+</div>
 ```
 
 ## When?
@@ -59,7 +59,6 @@ Or we can reference index.js, which loads both trPlugin.js and be-based.js in pa
 
 The element be-based can decorate is not limited to template elements.  It can be applied to any DOM element.
 
-### Via a mutation observer [TODO]
 
 If using [stream-orator](https://github.com/bahrus/stream-orator) to stream HTML to a target element, be-based can be used to watch all new elements, and apply all the rules as they are discovered.
 
