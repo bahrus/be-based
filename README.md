@@ -1,4 +1,4 @@
-# be-based [WIP]
+# be-based [TODO]
 
 be-based is a package that allows a DOM document fragment filled with relative URL paths, to be adjusted based on a base URL. 
 
@@ -32,16 +32,7 @@ is shorthand for:
 be-based transforms the template to:
 
 ```html
-<template is-based='{
-    "rules": [
-        {
-            "selector": "a",
-            "attr": "href",
-            "ifNot": "^(http|https)",
-            "baseHref": "https://www.supremecourt.gov/about/"
-        }
-    ]
-}'>
+<template is-based="https://www.supremecourt.gov/about/">
     <a href="https://www.supremecourt.gov/about/biographies.aspx#SOConnor">O'Connor, Sandra Day</a>
 </template>
 ```
@@ -50,7 +41,7 @@ be-based transforms the template to:
 
 The only question is "when does this happen"?  This packages allows it to happen in three places, but hopefully two additional places will be added in the future.
 
-###  Template Instantiation
+###  Template Instantiation / Discovery
 
 The package provides an entry point (trPlugin.js) to allow this to be done during template instantiation.
 
@@ -72,7 +63,7 @@ The element be-based can decorate is not limited to template elements.  It can b
 
 If using [stream-orator](https://github.com/bahrus/stream-orator) to stream HTML to a target element, be-based can be used to watch all new elements, and apply all the rules as they are discovered.
 
-### During Template Instantiation, But Programmatically
+### During Template Instantiation, But Programmatically [TODO]
 
 If using a non trans-render based template instantiation library, the following api allows the rules to be processed programmatically.
 
