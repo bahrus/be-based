@@ -12,6 +12,33 @@ export class BeBased implements Actions{
     //     processRules(pp);
     // }
 
+    processEl(node: Element, attrib: string, base: string){
+        if(!(node as Element).hasAttribute(attrib)) return;
+        const val = (node as Element).getAttribute(attrib)!;
+        if(val.indexOf('//')) return;
+        //TODO:  support paths that start with ..
+        const newVal = base + val;
+        (node as Element).setAttribute(attrib, newVal);
+    }
+
+    doInitial(pp: PP){
+        const {self, forAll, base} = pp;
+        for(const attrib of forAll!){
+            self.querySelectorAll(`[${attrib}]`).forEach(instance => {
+                this.processEl(instance, attrib, base!);
+            })
+        }
+        const sr = self.shadowRoot;
+        if(sr !== null){
+            for(const attrib of forAll!){
+                sr.querySelectorAll(`[${attrib}]`).forEach(instance => {
+                    this.processEl(instance, attrib, base!);
+                })
+            }
+        }
+
+    }
+
     hydrate(pp: PP){
         const {self, forAll, base} = pp;
           const observer = new MutationObserver(mutations => {
@@ -21,20 +48,22 @@ export class BeBased implements Actions{
                 addedNodes.forEach(node => {
                     if(node.nodeType != self.ELEMENT_NODE) return;
                     for(const attrib of forAll!){
-                        if(!(node as Element).hasAttribute(attrib)) continue;
-                        const val = (node as Element).getAttribute(attrib)!;
-                        if(val.indexOf('//')) continue;
-                        //TODO:  support paths that start with ..
-                        const newVal = base + val;
-                        (node as Element).setAttribute(attrib, newVal);
+                        this.processEl(node as Element, attrib, base!);
                     }                                
                 });
             });
         });
-        observer.observe(self.shadowRoot || self  as Element, {
+        observer.observe(self, {
             childList: true,
             subtree: true
         });
+        if(self.shadowRoot){
+            observer.observe(self.shadowRoot, {
+                childList: true,
+                subtree: true
+            });
+        }
+        this.doInitial(pp);
     }
 }
 

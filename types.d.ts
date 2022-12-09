@@ -6,6 +6,7 @@ export interface EndUserProps{
     //recursive?: boolean,
     //beVigilant?: boolean,
     base?: string,
+    
 }
 
 export interface VirtualProps extends EndUserProps, MinimalProxy{
