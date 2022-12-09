@@ -9,8 +9,7 @@
 		"watch": true
 	},
 	"files":[
-		"be-based.ts",
-		"trPlugin.ts"
+		"be-based.ts"
 	],
 	"exclude":[
 		"node_modules"
