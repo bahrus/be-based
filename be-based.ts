@@ -30,6 +30,9 @@ define<Proxy & BeDecoratedProps<Proxy, Actions>, Actions>({
             forceVisible: ['template'],
             virtualProps: ['rules', 'beDecorProps', 'recursive'],
             intro: 'intro',
+            proxyPropDefaults:{
+                
+            }
         },
         actions:{
             onRules: 'rules'

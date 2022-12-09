@@ -1,4 +1,4 @@
-# be-based
+# be-based [WIP]
 
 be-based is a package that allows a DOM document fragment filled with relative URL paths, to be adjusted based on a base URL. 
 
@@ -13,15 +13,34 @@ be-based is a package that allows a DOM document fragment filled with relative U
 ## The syntax:
 
 ```html
+<template be-based="https://www.supremecourt.gov/about/">
+    ...
+<template>
+```
+
+is shorthand for:
+
+```html
 <template be-based='{
-    "rules": [
-        {
-            "selector": "a",
-            "attr": "href",
-            "ifNot": "^(http|https)",
-            "baseHref": "https://www.supremecourt.gov/about/"
+    "base": "https://www.supremecourt.gov/about/",
+    "on": {
+        "href": {
+            "a": true,
+            "area": true,
+            "link": true
+        },
+        "src": {
+            "audio": true,
+            "embed": true,
+            "iframe": true,
+            "img": true,
+            "input": true,
+            "script": true,
+            "source": true,
+            "track": true,
+            "video": true
         }
-    ]
+    }
 }'>
     <a href="biographies.aspx#SOConnor">O'Connor, Sandra Day</a>
 </template>
@@ -62,7 +81,7 @@ be-based is one of a growing family of [be-decorated](https://github.com/bahrus/
 
 By referencing be-based.js, elements with attribute be-based will be discovered and transformed.
 
-Or we can refence index.js, which loads both trPlugin.js and be-based.js in parallel.
+Or we can reference index.js, which loads both trPlugin.js and be-based.js in parallel.
 
 The element be-based can decorate is not limited to template elements.  It can be applied to any DOM element.
 
