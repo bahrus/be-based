@@ -52,6 +52,9 @@ export class BeBased {
             });
         }
         this.#doInitial(pp);
+        return {
+            resolved: true,
+        };
     }
     disconnect() {
         this.#observer?.disconnect();

@@ -18,9 +18,10 @@ export interface ProxyProps extends VirtualProps{
 
 export type PP = ProxyProps;
 
+export type PA = Partial<PP>;
 
 export interface Actions{
-    hydrate(pp: PP): void;
+    hydrate(pp: PP): PA;
     finale(): void;
 }
 

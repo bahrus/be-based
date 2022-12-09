@@ -1,4 +1,4 @@
-import {VirtualProps, Actions, Proxy, PP} from './types';
+import {VirtualProps, Actions, Proxy, PP, PA} from './types';
 import {define, BeDecoratedProps} from 'be-decorated/DE.js';
 import {register} from 'be-hive/register.js';
 
@@ -59,6 +59,9 @@ export class BeBased implements Actions{
             });
         }
         this.#doInitial(pp);
+        return {
+            resolved: true,
+        } as PA;
     }
 
     disconnect(){
