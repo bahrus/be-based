@@ -14,7 +14,7 @@ be-based is a package that allows a DOM document fragment filled with relative U
 
 ```html
 <template be-based="https://www.supremecourt.gov/about/">
-    ...
+    <a href="biographies.aspx#SOConnor">O'Connor, Sandra Day</a>
 <template>
 ```
 
@@ -23,24 +23,7 @@ is shorthand for:
 ```html
 <template be-based='{
     "base": "https://www.supremecourt.gov/about/",
-    "on": {
-        "href": {
-            "a": true,
-            "area": true,
-            "link": true
-        },
-        "src": {
-            "audio": true,
-            "embed": true,
-            "iframe": true,
-            "img": true,
-            "input": true,
-            "script": true,
-            "source": true,
-            "track": true,
-            "video": true
-        }
-    }
+    "forAll": ["href", "src"]
 }'>
     <a href="biographies.aspx#SOConnor">O'Connor, Sandra Day</a>
 </template>
