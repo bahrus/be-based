@@ -2,12 +2,9 @@
 
 be-based is a package that allows a DOM document fragment filled with relative URL paths, to be adjusted based on a base URL. 
 
-<a href="https://nodei.co/npm/be-based/"><img src="https://nodei.co/npm/be-based.png"></a>
-
+[![NPM version](https://badge.fury.io/js/be-based.png)](http://badge.fury.io/js/be-based)
 [![How big is this package in your project?](https://img.shields.io/bundlephobia/minzip/be-based?style=for-the-badge)](https://bundlephobia.com/result?p=be-based)
-
 <img src="http://img.badgesize.io/https://cdn.jsdelivr.net/npm/be-based?compression=gzip">
-
 [![Playwright Tests](https://github.com/bahrus/be-based/actions/workflows/CI.yml/badge.svg?branch=baseline)](https://github.com/bahrus/be-based/actions/workflows/CI.yml)
 
 ## The syntax:
