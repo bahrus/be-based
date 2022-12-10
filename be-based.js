@@ -7,6 +7,8 @@ export class BeBased {
         const val = node.getAttribute(attrib);
         if (val.indexOf('//') !== -1)
             return;
+        if (val.startsWith('data:'))
+            return;
         //TODO:  support paths that start with ..
         const separator = (!base.endsWith('/') && !val.startsWith('/')) ? '/' : '';
         const newVal = base + separator + val;
