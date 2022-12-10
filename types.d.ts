@@ -10,6 +10,12 @@ export interface VirtualProps extends EndUserProps, MinimalProxy{
     beDecorProps?: BeDecoratedProps,
 }
 
+
+export interface PuntEvent{
+    count: number,
+    instance: Element,
+}
+
 export type Proxy = Element & VirtualProps;
 
 export interface ProxyProps extends VirtualProps{

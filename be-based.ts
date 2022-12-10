@@ -1,19 +1,30 @@
-import {VirtualProps, Actions, Proxy, PP, PA} from './types';
+import {VirtualProps, Actions, Proxy, PP, PA, PuntEvent} from './types';
 import {define, BeDecoratedProps} from 'be-decorated/DE.js';
 import {register} from 'be-hive/register.js';
 
 
 
-export class BeBased implements Actions{
+export class BeBased extends EventTarget implements Actions{
 
     #doInitial(pp: PP){
-        const {self, forAll, base} = pp;
-        this.#doFragment(self, forAll!, base!)
+        //TODO:  support both shadow and light if told to do so
+        const {self, forAll, base, puntOn} = pp;
         const sr = self.shadowRoot;
         if(sr !== null){
             this.#doFragment(sr, forAll!, base!);
+        }else{
+            this.#doFragment(self, forAll!, base!);
         }
+        
 
+        if(puntOn !== undefined){
+            this.#puntFragment(self, puntOn);
+            if(sr !== null){
+                this.#puntFragment(sr, puntOn);
+            }else{
+                this.#puntFragment(self, puntOn);
+            }
+        }
     }
 
     #doFragment(fragment: Element | ShadowRoot, forAll: string[], base: string){
@@ -23,6 +34,30 @@ export class BeBased implements Actions{
                 this.#processEl(instance, attrib, base!);
             })
         }
+    }
+    #puntCount: {[key: string]: number} = {};
+
+    #puntFragment(fragment: Element | ShadowRoot, puntOn: string[]){
+        this.#puntCount = {};
+        for(const selector of puntOn){
+            fragment.querySelectorAll(selector).forEach(instance => {
+                this.#processPunt(selector, instance as Element);
+            });
+        }
+        
+    }
+
+    #processPunt(selector: string, instance: Element){
+        if(this.#puntCount[selector] === undefined){
+            this.#puntCount[selector] = 0;
+        }
+        this.#puntCount[selector]++;
+        this.dispatchEvent(new CustomEvent(selector, {
+            detail:{
+                count: this.#puntCount[selector],
+                instance
+            } as PuntEvent,
+        }));
     }
 
     #processEl(node: Element, attrib: string, base: string){
@@ -48,8 +83,8 @@ export class BeBased implements Actions{
 
     #observer: MutationObserver | undefined;
     hydrate(pp: PP){
-        const {self, forAll, base} = pp;
-          this.#observer = new MutationObserver(mutations => {
+        const {self, forAll, base, puntOn} = pp;
+        this.#observer = new MutationObserver(mutations => {
             mutations.forEach(({
                 addedNodes
             }) => {
@@ -57,6 +92,13 @@ export class BeBased implements Actions{
                     if(node.nodeType != self.ELEMENT_NODE) return;
                     for(const attrib of forAll!){
                         this.#processEl(node as Element, attrib, base!);
+                    }
+                    if(puntOn !== undefined){
+                        for(const selector of puntOn){
+                            if((node as Element).matches(selector)){
+                                this.#processPunt(selector, node as Element);
+                            }
+                        }
                     }                                
                 });
             });
