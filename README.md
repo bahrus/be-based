@@ -21,12 +21,12 @@ be-based is a package that allows a DOM document fragment filled with relative U
 is shorthand for:
 
 ```html
-<template be-based='{
+<div be-based='{
     "base": "https://www.supremecourt.gov/about/",
-    "forAll": ["href", "src"]
+    "forAll": ["href", "src", "xlink:href"]
 }'>
     <a href="biographies.aspx#SOConnor">O'Connor, Sandra Day</a>
-</template>
+</div>
 ```
 
 be-based rewrites the attribute within:
@@ -36,18 +36,6 @@ be-based rewrites the attribute within:
     <a href="https://www.supremecourt.gov/about/biographies.aspx#SOConnor">O'Connor, Sandra Day</a>
 </div>
 ```
-
-## When?
-
-The only question is "when does this happen"?  This packages allows it to happen in three places, but hopefully two additional places will be added in the future.
-
-###  Template Instantiation / Discovery
-
-The package provides an entry point (trPlugin.js) to allow this to be done during template instantiation.
-
-In particular, it can be incorporated via a single line declarative config setting into a [DTR-based](https://github.com/bahrus/trans-render#declarative-trans-render-syntax-via-plugins) template instantiation.
-
-But it is a "non-blocking" dependency.  If the library hasn't been loaded by the time the template instantiation commences, *Arazorik ez*, let the second avenue for the transformation happen in the live DOM:
 
 ### As a custom attribute / decorator / behavior
 
