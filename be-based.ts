@@ -11,7 +11,8 @@ export class BeBased implements Actions{
         const val = (node as Element).getAttribute(attrib)!;
         if(val.indexOf('//') !== -1) return;
         //TODO:  support paths that start with ..
-        const newVal = base + val;
+        const separator = (!base.endsWith('/') && !val.startsWith('/')) ? '/' : ''; 
+        const newVal = base + separator + val;
         (node as Element).setAttribute(attrib, newVal);
     }
 

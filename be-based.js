@@ -8,7 +8,8 @@ export class BeBased {
         if (val.indexOf('//') !== -1)
             return;
         //TODO:  support paths that start with ..
-        const newVal = base + val;
+        const separator = (!base.endsWith('/') && !val.startsWith('/')) ? '/' : '';
+        const newVal = base + separator + val;
         node.setAttribute(attrib, newVal);
     }
     #doInitial(pp) {
