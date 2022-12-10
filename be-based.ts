@@ -16,14 +16,18 @@ export class BeBased implements Actions{
         (node as Element).setAttribute(attrib, newVal);
     }
 
+    #ns(attrib: string){
+        const split = attrib.split(':');
+        if(split.length > 1){
+            split[0] = '*'
+        };
+        return split.join('|');
+    }
+
     #doInitial(pp: PP){
         const {self, forAll, base} = pp;
         for(const attrib of forAll!){
-            const split = attrib.split(':');
-            if(split.length > 1){
-                split[0] = '*'
-            };
-            const attribNS = split.join('|');
+            const attribNS = this.#ns(attrib);
             self.querySelectorAll(`[${attribNS}]`).forEach(instance => {
                 this.#processEl(instance, attrib, base!);
             })
@@ -31,7 +35,8 @@ export class BeBased implements Actions{
         const sr = self.shadowRoot;
         if(sr !== null){
             for(const attrib of forAll!){
-                sr.querySelectorAll(`[${attrib}]`).forEach(instance => {
+                const attribNS = this.#ns(attrib);
+                sr.querySelectorAll(`[${attribNS}]`).forEach(instance => {
                     this.#processEl(instance, attrib, base!);
                 })
             }
