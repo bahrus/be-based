@@ -6,6 +6,25 @@ import {register} from 'be-hive/register.js';
 
 export class BeBased implements Actions{
 
+    #doInitial(pp: PP){
+        const {self, forAll, base} = pp;
+        this.#doFragment(self, forAll!, base!)
+        const sr = self.shadowRoot;
+        if(sr !== null){
+            this.#doFragment(sr, forAll!, base!);
+        }
+
+    }
+
+    #doFragment(fragment: Element | ShadowRoot, forAll: string[], base: string){
+        for(const attrib of forAll){
+            const attribNS = this.#ns(attrib);
+            fragment.querySelectorAll(`[${attribNS}]`).forEach(instance => {
+                this.#processEl(instance, attrib, base!);
+            })
+        }
+    }
+
     #processEl(node: Element, attrib: string, base: string){
         if(!(node as Element).hasAttribute(attrib)) return;
         const val = (node as Element).getAttribute(attrib)!;
@@ -25,25 +44,7 @@ export class BeBased implements Actions{
         return split.join('|');
     }
 
-    #doInitial(pp: PP){
-        const {self, forAll, base} = pp;
-        for(const attrib of forAll!){
-            const attribNS = this.#ns(attrib);
-            self.querySelectorAll(`[${attribNS}]`).forEach(instance => {
-                this.#processEl(instance, attrib, base!);
-            })
-        }
-        const sr = self.shadowRoot;
-        if(sr !== null){
-            for(const attrib of forAll!){
-                const attribNS = this.#ns(attrib);
-                sr.querySelectorAll(`[${attribNS}]`).forEach(instance => {
-                    this.#processEl(instance, attrib, base!);
-                })
-            }
-        }
 
-    }
 
     #observer: MutationObserver | undefined;
     hydrate(pp: PP){

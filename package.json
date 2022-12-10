@@ -11,7 +11,7 @@
     "custom element"
   ],
   "dependencies": {
-    "be-decorated": "0.0.205",
+    "be-decorated": "0.0.206",
     "be-hive": "0.0.78",
     "trans-render": "0.0.650"
   },

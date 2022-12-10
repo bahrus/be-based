@@ -1,6 +1,22 @@
 import { define } from 'be-decorated/DE.js';
 import { register } from 'be-hive/register.js';
 export class BeBased {
+    #doInitial(pp) {
+        const { self, forAll, base } = pp;
+        this.#doFragment(self, forAll, base);
+        const sr = self.shadowRoot;
+        if (sr !== null) {
+            this.#doFragment(sr, forAll, base);
+        }
+    }
+    #doFragment(fragment, forAll, base) {
+        for (const attrib of forAll) {
+            const attribNS = this.#ns(attrib);
+            fragment.querySelectorAll(`[${attribNS}]`).forEach(instance => {
+                this.#processEl(instance, attrib, base);
+            });
+        }
+    }
     #processEl(node, attrib, base) {
         if (!node.hasAttribute(attrib))
             return;
@@ -21,24 +37,6 @@ export class BeBased {
         }
         ;
         return split.join('|');
-    }
-    #doInitial(pp) {
-        const { self, forAll, base } = pp;
-        for (const attrib of forAll) {
-            const attribNS = this.#ns(attrib);
-            self.querySelectorAll(`[${attribNS}]`).forEach(instance => {
-                this.#processEl(instance, attrib, base);
-            });
-        }
-        const sr = self.shadowRoot;
-        if (sr !== null) {
-            for (const attrib of forAll) {
-                const attribNS = this.#ns(attrib);
-                sr.querySelectorAll(`[${attribNS}]`).forEach(instance => {
-                    this.#processEl(instance, attrib, base);
-                });
-            }
-        }
     }
     #observer;
     hydrate(pp) {
