@@ -18,7 +18,12 @@ export class BeBased implements Actions{
     #doInitial(pp: PP){
         const {self, forAll, base} = pp;
         for(const attrib of forAll!){
-            self.querySelectorAll(`[${attrib}]`).forEach(instance => {
+            const split = attrib.split(':');
+            if(split.length > 1){
+                split[0] = '*'
+            };
+            const attribNS = split.join('|');
+            self.querySelectorAll(`[${attribNS}]`).forEach(instance => {
                 this.#processEl(instance, attrib, base!);
             })
         }
@@ -90,7 +95,7 @@ define<Proxy & BeDecoratedProps<Proxy, Actions>, Actions>({
             forceVisible: ['template'],
             virtualProps: ['base', 'forAll'],
             proxyPropDefaults:{
-                forAll: ['src', 'href']
+                forAll: ['src', 'href', 'xlink:href']
             },
             primaryProp: 'base'
         },
