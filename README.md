@@ -1,4 +1,4 @@
-# be-based [TODO]
+# be-based
 
 be-based is a package that allows a DOM document fragment filled with relative URL paths, to be adjusted based on a base URL. 
 
@@ -50,21 +50,12 @@ The element be-based can decorate is not limited to template elements.  It can b
 
 If using [stream-orator](https://github.com/bahrus/stream-orator) to stream HTML to a target element, be-based can be used to watch all new elements, and apply all the rules as they are discovered.
 
-### During Template Instantiation, But Programmatically [TODO]
+This seems to work quite well with Chromium based browsers running on windows (rewriting image url's before the browser tries the original, invalid url), but isn't so effective with Firefox.
 
-If using a non trans-render based template instantiation library, the following api allows the rules to be processed programmatically.
+### During Template Instantiation, But Programmatically 
 
-```TypeScript
-import { BeBasedVirtualProps } from 'be-based/types';
-
-async function processBeBasedRules(props: BeBasedVirtualProps | undefined, target: Element){
-    if(props === undefined) return;
-    const {processRules} = await import('be-based/processRules.js');
-    processRules({proxy: target, rules: props.rules});
-}
-
+This package contains a plugin, trPlugin.js, which does its thing during template instantiation if registered as a plugin while using [DTR.js](https://github.com/bahrus-trans-render) transforms.
 ```
-
 
 ### As a cloudflare HTMLRewriter Class [TODO]
 
