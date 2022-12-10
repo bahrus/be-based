@@ -40,7 +40,7 @@ be-based is one of a growing family of [be-decorated](https://github.com/bahrus/
 
 By referencing be-based.js, elements with attribute be-based will be discovered and transformed.
 
-Or we can reference index.js, which loads both trPlugin.js and be-based.js in parallel.
+Or we can reference index.js, which loads both trPlugin.js (template instantiation plug-in) and be-based.js in parallel.
 
 The element be-based can decorate is not limited to template elements.  It can be applied to any DOM element.
 
@@ -52,7 +52,6 @@ This seems to work quite well with Chromium based browsers running on windows (r
 ### During Template Instantiation, But Programmatically 
 
 This package contains a plugin, trPlugin.js, which does its thing during template instantiation if registered as a plugin while using [DTR.js](https://github.com/bahrus-trans-render) transforms.
-```
 
 ### As a cloudflare HTMLRewriter Class [TODO]
 
