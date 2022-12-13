@@ -77,10 +77,15 @@ export class BeBased extends EventTarget {
         this.#observer = new MutationObserver(mutations => {
             mutations.forEach(({ addedNodes }) => {
                 addedNodes.forEach(node => {
-                    if (node.nodeType != self.ELEMENT_NODE)
+                    if (!(node instanceof Element))
                         return;
                     for (const attrib of forAll) {
                         this.#processEl(node, attrib, base);
+                    }
+                    if (node instanceof HTMLTemplateElement && node.hasAttribute('shadowroot')) {
+                        const parent = node.parentElement;
+                        parent.attachShadow({ mode: node.getAttribute('shadowroot') });
+                        parent.shadowRoot.appendChild(node.content.cloneNode(true));
                     }
                     if (puntOn !== undefined) {
                         for (const selector of puntOn) {

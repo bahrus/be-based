@@ -89,9 +89,14 @@ export class BeBased extends EventTarget implements Actions{
                 addedNodes
             }) => {
                 addedNodes.forEach(node => {
-                    if(node.nodeType != self.ELEMENT_NODE) return;
+                    if(!(node instanceof Element)) return;
                     for(const attrib of forAll!){
                         this.#processEl(node as Element, attrib, base!);
+                    }
+                    if(node instanceof HTMLTemplateElement && node.hasAttribute('shadowroot')){
+                        const parent = node.parentElement!;
+                        parent.attachShadow({mode: node.getAttribute('shadowroot') as 'open' | 'closed'});
+                        parent.shadowRoot!.appendChild(node.content.cloneNode(true));
                     }
                     if(puntOn !== undefined){
                         for(const selector of puntOn){
