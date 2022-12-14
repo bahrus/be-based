@@ -38,7 +38,7 @@ be-based rewrites the attribute within:
 
 *be-based* also takes it upon itself, in the absence of any apparent alternatives, to make the same Declarative Shadow DOM syntax that works when streaming HTML to the browser, to also work while streaming a seprate HTML fetch request to a DOM element.
 
-## Side service
+## Side service -- Element Matching
 
 Another service be-based provides is it can be subscribed to for any CSS matches it encounters.  This feature is used by [be-rewritten](https://github.com/bahrus/be-rewritten).
 
