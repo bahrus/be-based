@@ -77,6 +77,7 @@ export class BeBased extends EventTarget implements Actions{
             }
             newVal = split.join('/') + '/' + val;
         }else{
+            if(val[0] ==='/') val = val.substring(1);
             newVal = base + val;
         }
         (node as Element).setAttribute(attrib, newVal);
