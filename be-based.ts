@@ -62,12 +62,24 @@ export class BeBased extends EventTarget implements Actions{
 
     #processEl(node: Element, attrib: string, base: string){
         if(!(node as Element).hasAttribute(attrib)) return;
-        const val = (node as Element).getAttribute(attrib)!;
+        let val = (node as Element).getAttribute(attrib)!;
         if(val.indexOf('//') !== -1) return;
         if(val.startsWith('data:')) return;
         //TODO:  support paths that start with ..
-        const separator = (!base.endsWith('/') && !val.startsWith('/')) ? '/' : ''; 
-        const newVal = base + separator + val;
+        
+        let newVal: string | undefined;
+        if(val.startsWith('../')){
+            let split = base.split('/');
+            split.pop();
+            while(val.startsWith('../')){
+                val = val.substring(3);
+                split.pop();
+            }
+            newVal = split.join('/') + '/' + val;
+        }else{
+            const separator = (!base.endsWith('/') && !val.startsWith('/')) ? '/' : '';
+            newVal = base + separator + val;
+        }
         (node as Element).setAttribute(attrib, newVal);
     }
 
@@ -84,6 +96,7 @@ export class BeBased extends EventTarget implements Actions{
     #observer: MutationObserver | undefined;
     hydrate(pp: PP){
         const {self, forAll, base, puntOn} = pp;
+        if(!base!.endsWith('/')) throw 'base must end with /';
         this.#observer = new MutationObserver(mutations => {
             mutations.forEach(({
                 addedNodes
