@@ -1,6 +1,6 @@
 # be-based
 
-be-based is a package that allows a DOM document fragment filled with relative URL paths, to be adjusted based on a base URL. This is quite critical when streaming HTML from a third-party element to a DOM node contained within the Live DOM tree.  be-based plays a critica role in combination with [be-written](https://github.com/bahrus/be-written).
+be-based is a package that allows a DOM document fragment filled with relative URL paths, to be adjusted based on a base URL. This is quite critical when streaming HTML from a third-party element to a DOM node contained within the Live DOM tree.  be-based plays a critical role in combination with [be-written](https://github.com/bahrus/be-written).
 
 [![NPM version](https://badge.fury.io/js/be-based.png)](http://badge.fury.io/js/be-based)
 [![How big is this package in your project?](https://img.shields.io/bundlephobia/minzip/be-based?style=for-the-badge)](https://bundlephobia.com/result?p=be-based)
@@ -34,9 +34,11 @@ be-based rewrites the attribute within:
 </div>
 ```
 
+> **Note:** the value of the "base" must end with a slash.
+
 ## Side service -- Declarative Shadow DOM
 
-*be-based* also takes it upon itself, in the absence of any apparent alternatives, to make the same Declarative Shadow DOM syntax that works when streaming HTML to the browser, to also work while streaming a seprate HTML fetch request to a DOM element.
+*be-based* also takes it upon itself, in the absence of any apparent alternatives, to make the same Declarative Shadow DOM syntax that works when streaming HTML to the browser, to also work while streaming a separate HTML fetch request to a DOM element.
 
 ## Side service -- Element Matching
 
