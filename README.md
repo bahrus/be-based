@@ -34,8 +34,6 @@ be-based rewrites the attribute within:
 </div>
 ```
 
-> **Note:** the value of the "base" must end with a slash.
-
 ## Side service -- Declarative Shadow DOM
 
 *be-based* also takes it upon itself, in the absence of any apparent alternatives, to make the same Declarative Shadow DOM syntax that works when streaming HTML to the browser, to also work while streaming a separate HTML fetch request to a DOM element.

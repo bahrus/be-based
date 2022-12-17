@@ -70,8 +70,7 @@ export class BeBased extends EventTarget {
             newVal = split.join('/') + '/' + val;
         }
         else {
-            const separator = (!base.endsWith('/') && !val.startsWith('/')) ? '/' : '';
-            newVal = base + separator + val;
+            newVal = base + val;
         }
         node.setAttribute(attrib, newVal);
     }
@@ -85,9 +84,12 @@ export class BeBased extends EventTarget {
     }
     #observer;
     hydrate(pp) {
-        const { self, forAll, base, puntOn } = pp;
-        if (!base.endsWith('/'))
-            throw 'base must end with /';
+        const { self, forAll, base, puntOn, proxy } = pp;
+        if (!base.endsWith('/')) {
+            return {
+                base: base + '/',
+            };
+        }
         this.#observer = new MutationObserver(mutations => {
             mutations.forEach(({ addedNodes }) => {
                 addedNodes.forEach(node => {
