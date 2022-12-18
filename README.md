@@ -57,6 +57,8 @@ If using [stream-orator](https://github.com/bahrus/stream-orator) to stream HTML
 
 This seems to work quite well with Chromium based browsers running on windows (rewriting image url's before the browser tries the original, invalid url), but isn't so effective with Firefox.
 
+Update:  Well, on Chromium based browser, it doesn't seem so reliable either, at least depending on when I try.
+
 ### During Template Instantiation, But Programmatically 
 
 This package contains a plugin, trPlugin.js, which does its thing during template instantiation if registered as a plugin while using [DTR.js](https://github.com/bahrus-trans-render) transforms.
