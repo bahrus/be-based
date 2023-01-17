@@ -3,11 +3,13 @@ import {BeDecoratedProps, MinimalProxy} from 'be-decorated/types';
 export interface EndUserProps{
     forAll?: string[],
     base?: string,
+    fileName?: string
     puntOn?: string[],
 }
 
 export interface VirtualProps extends EndUserProps, MinimalProxy{
-    beDecorProps?: BeDecoratedProps,
+    //beDecorProps?: BeDecoratedProps,
+    proxy: Element,
 }
 
 

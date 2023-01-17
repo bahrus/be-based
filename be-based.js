@@ -3,13 +3,13 @@ import { register } from 'be-hive/register.js';
 export class BeBased extends EventTarget {
     #doInitial(pp) {
         //TODO:  support both shadow and light if told to do so
-        const { self, forAll, base, puntOn } = pp;
+        const { self, forAll, base, puntOn, fileName } = pp;
         const sr = self.shadowRoot;
         if (sr !== null) {
-            this.#doFragment(sr, forAll, base);
+            this.#doFragment(sr, forAll, base, fileName);
         }
         else {
-            this.#doFragment(self, forAll, base);
+            this.#doFragment(self, forAll, base, fileName);
         }
         if (puntOn !== undefined) {
             this.#puntFragment(self, puntOn);
@@ -21,11 +21,11 @@ export class BeBased extends EventTarget {
             }
         }
     }
-    #doFragment(fragment, forAll, base) {
+    #doFragment(fragment, forAll, base, fileName) {
         for (const attrib of forAll) {
             const attribNS = this.#ns(attrib);
             fragment.querySelectorAll(`[${attribNS}]`).forEach(instance => {
-                this.#processEl(instance, attrib, base);
+                this.#processEl(instance, attrib, base, fileName);
             });
         }
     }
@@ -50,7 +50,7 @@ export class BeBased extends EventTarget {
             },
         }));
     }
-    #processEl(node, attrib, base) {
+    #processEl(node, attrib, base, fileName) {
         if (!node.hasAttribute(attrib))
             return;
         let val = node.getAttribute(attrib);
@@ -58,7 +58,10 @@ export class BeBased extends EventTarget {
             return;
         if (val.startsWith('data:'))
             return;
+        if (val[0] === '#')
+            return;
         //TODO:  support paths that start with ..
+        //console.log({attrib, base, val, fileName});
         let newVal;
         if (val.startsWith('../')) {
             let split = base.split('/');
@@ -68,12 +71,15 @@ export class BeBased extends EventTarget {
                 split.pop();
             }
             newVal = split.join('/') + '/' + val;
+            // }else if(val[0] === '#'){
+            //     newVal = base + fileName + val;
         }
         else {
             if (val[0] === '/')
-                val = val.substring(1);
+                val = val.substring(1); // this doesn't seem right - need to start from domain (?)
             newVal = base + val;
         }
+        //console.log({newVal});
         node.setAttribute(attrib, newVal);
     }
     #ns(attrib) {
@@ -86,7 +92,7 @@ export class BeBased extends EventTarget {
     }
     #observer;
     hydrate(pp) {
-        const { self, forAll, base, puntOn, proxy } = pp;
+        const { self, forAll, base, puntOn, proxy, fileName } = pp;
         if (!base.endsWith('/')) {
             return {
                 base: base + '/',
@@ -98,7 +104,7 @@ export class BeBased extends EventTarget {
                     if (!(node instanceof Element))
                         return;
                     for (const attrib of forAll) {
-                        this.#processEl(node, attrib, base);
+                        this.#processEl(node, attrib, base, fileName);
                     }
                     const shadowRoot = node.getAttribute('shadowroot');
                     if (node instanceof HTMLTemplateElement && shadowRoot !== null) {
@@ -151,7 +157,7 @@ define({
             ifWantsToBe,
             finale: 'finale',
             forceVisible: ['template'],
-            virtualProps: ['base', 'forAll'],
+            virtualProps: ['base', 'forAll', 'puntOn', 'fileName'],
             proxyPropDefaults: {
                 forAll: ['src', 'href', 'xlink:href']
             },
