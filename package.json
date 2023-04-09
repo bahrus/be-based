@@ -11,13 +11,13 @@
     "custom element"
   ],
   "dependencies": {
-    "be-decorated": "0.0.222",
-    "be-hive": "0.0.79",
-    "trans-render": "0.0.663"
+    "be-decorated": "0.0.238",
+    "be-hive": "0.0.82",
+    "trans-render": "0.0.671"
   },
   "devDependencies": {
-    "may-it-serve": "0.0.4",
-    "@playwright/test": "1.29.2",
+    "may-it-serve": "0.0.5",
+    "@playwright/test": "1.32.1",
     "@skypack/package-check": "0.2.2",
     "@custom-elements-manifest/analyzer": "0.6.4"
   },
