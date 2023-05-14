@@ -1,30 +1,121 @@
-import {VirtualProps, Actions, Proxy, PP, PA, PuntEvent} from './types';
-import {define, BeDecoratedProps} from 'be-decorated/DE.js';
+import {BE, propDefaults, propInfo} from 'be-enhanced/BE.js';
+import {BEConfig} from 'be-enhanced/types';
+import {XE} from 'xtal-element/XE.js';
+import {Actions, AllProps, AP, PAP, ProPAP, POA, PuntEvent} from './types';
 import {register} from 'be-hive/register.js';
 
+export class BeBased extends BE<AP, Actions> implements Actions{
+    static  override get beConfig(){
+        return {
+            parse: true,
+            primaryProp: 'base'
+        } as BEConfig
+    }  
 
+    #observer: MutationObserver | undefined;
+    hydrate(self: this): PAP {
+        const {enhancedElement, forAll, base, puntOn, fileName} = self;
+        if(!base!.endsWith('/')){
+            return {
+                base: base + '/',
+            }
+        }
+        this.#observer = new MutationObserver(mutations => {
+            mutations.forEach(({
+                addedNodes
+            }) => {
+                addedNodes.forEach(node => {
+                    if(!(node instanceof Element)) return;
+                    for(const attrib of forAll!){
+                        this.#processEl(node as Element, attrib, base!, fileName);
+                    }
+                    const shadowRoot = node.getAttribute('shadowroot') as 'open' | 'closed' | null;
+                    if(node instanceof HTMLTemplateElement && shadowRoot !== null){
+                        node.removeAttribute('shadowroot');
+                        const parent = node.parentElement!;
+                        parent.attachShadow({mode: shadowRoot});
+                        parent.shadowRoot!.appendChild(node.content.cloneNode(true));
+                        node.remove();
+                    }
+                    if(puntOn !== undefined){
+                        for(const selector of puntOn){
+                            if((node as Element).matches(selector)){
+                                this.#processPunt(selector, node as Element);
+                            }
+                        }
+                    }                                
+                });
+            });
+        });
+        this.#observer.observe(enhancedElement, {
+            childList: true,
+            subtree: true
+        });
+        if(enhancedElement.shadowRoot){
+            this.#observer.observe(enhancedElement.shadowRoot, {
+                childList: true,
+                subtree: true
+            });
+        }
+        this.#doInitial(self);
+        return {
+            resolved: true
+        }
+    }
 
-export class BeBased extends EventTarget implements Actions{
-
-    #doInitial(pp: PP){
+    #doInitial(self: this){
         //TODO:  support both shadow and light if told to do so
-        const {self, forAll, base, puntOn, fileName} = pp;
-        const sr = self.shadowRoot;
+        const {enhancedElement, forAll, base, puntOn, fileName} = self;
+        const sr = enhancedElement.shadowRoot;
         if(sr !== null){
             this.#doFragment(sr, forAll!, base!, fileName);
         }else{
-            this.#doFragment(self, forAll!, base!, fileName);
+            this.#doFragment(enhancedElement, forAll!, base!, fileName);
         }
         
 
         if(puntOn !== undefined){
-            this.#puntFragment(self, puntOn);
+            this.#puntFragment(enhancedElement, puntOn);
             if(sr !== null){
                 this.#puntFragment(sr, puntOn);
             }else{
-                this.#puntFragment(self, puntOn);
+                this.#puntFragment(enhancedElement, puntOn);
             }
         }
+    }
+
+    #processEl(node: Element, attrib: string, base: string, fileName?: string){
+        if(!(node as Element).hasAttribute(attrib)) return;
+        let val = (node as Element).getAttribute(attrib)!;
+        if(val.indexOf('//') !== -1) return;
+        if(val.startsWith('data:')) return;
+        if(val[0] === '#') return;
+        //TODO:  support paths that start with ..
+        //console.log({attrib, base, val, fileName});
+        let newVal: string | undefined;
+        if(val.startsWith('../')){
+            let split = base.split('/');
+            split.pop();
+            while(val.startsWith('../')){
+                val = val.substring(3);
+                split.pop();
+            }
+            newVal = split.join('/') + '/' + val;
+        // }else if(val[0] === '#'){
+        //     newVal = base + fileName + val;
+        }else{
+            if(val[0] ==='/') val = val.substring(1); // this doesn't seem right - need to start from domain (?)
+            newVal = base + val;
+        }
+        (node as Element).setAttribute(attrib, newVal);
+    }
+
+    #ns(attrib: string){
+        const split = attrib.split(':');
+        if(split.length > 1){
+            split[0] = '*'
+        };
+        return split.join('|');
     }
 
     #doFragment(fragment: Element | ShadowRoot, forAll: string[], base: string, fileName?: string){
@@ -60,133 +151,38 @@ export class BeBased extends EventTarget implements Actions{
         }));
     }
 
-    #processEl(node: Element, attrib: string, base: string, fileName?: string){
-        if(!(node as Element).hasAttribute(attrib)) return;
-        let val = (node as Element).getAttribute(attrib)!;
-        if(val.indexOf('//') !== -1) return;
-        if(val.startsWith('data:')) return;
-        if(val[0] === '#') return;
-        //TODO:  support paths that start with ..
-        //console.log({attrib, base, val, fileName});
-        let newVal: string | undefined;
-        if(val.startsWith('../')){
-            let split = base.split('/');
-            split.pop();
-            while(val.startsWith('../')){
-                val = val.substring(3);
-                split.pop();
-            }
-            newVal = split.join('/') + '/' + val;
-        // }else if(val[0] === '#'){
-        //     newVal = base + fileName + val;
-        }else{
-            if(val[0] ==='/') val = val.substring(1); // this doesn't seem right - need to start from domain (?)
-            newVal = base + val;
-        }
-        //console.log({newVal});
-        (node as Element).setAttribute(attrib, newVal);
-    }
-
-    #ns(attrib: string){
-        const split = attrib.split(':');
-        if(split.length > 1){
-            split[0] = '*'
-        };
-        return split.join('|');
-    }
-
-
-
-    #observer: MutationObserver | undefined;
-    hydrate(pp: PP){
-        const {self, forAll, base, puntOn, proxy, fileName} = pp;
-        if(!base!.endsWith('/')) {
-            return {
-                base: base + '/',
-            }
-        }
-        this.#observer = new MutationObserver(mutations => {
-            mutations.forEach(({
-                addedNodes
-            }) => {
-                addedNodes.forEach(node => {
-                    if(!(node instanceof Element)) return;
-                    for(const attrib of forAll!){
-                        this.#processEl(node as Element, attrib, base!, fileName);
-                    }
-                    const shadowRoot = node.getAttribute('shadowroot') as 'open' | 'closed' | null;
-                    if(node instanceof HTMLTemplateElement && shadowRoot !== null){
-                        node.removeAttribute('shadowroot');
-                        const parent = node.parentElement!;
-                        parent.attachShadow({mode: shadowRoot});
-                        parent.shadowRoot!.appendChild(node.content.cloneNode(true));
-                        node.remove();
-                    }
-                    if(puntOn !== undefined){
-                        for(const selector of puntOn){
-                            if((node as Element).matches(selector)){
-                                this.#processPunt(selector, node as Element);
-                            }
-                        }
-                    }                                
-                });
-            });
-        });
-        this.#observer.observe(self, {
-            childList: true,
-            subtree: true
-        });
-        if(self.shadowRoot){
-            this.#observer.observe(self.shadowRoot, {
-                childList: true,
-                subtree: true
-            });
-        }
-        this.#doInitial(pp);
-        return {
-            resolved: true,
-        } as PA;
-    }
-
     disconnect(){
         this.#observer?.disconnect();
     }
 
-    finale(): void {
+    override detach(detachedElement: Element): void {
         this.disconnect();
     }
 }
 
+export interface BeBased extends AllProps{}
 
 const tagName = 'be-based';
-
 const ifWantsToBe = 'based';
-
 const upgrade = '*';
 
-define<Proxy & BeDecoratedProps<Proxy, Actions>, Actions>({
+const xe = new XE<AP, Actions>({
     config:{
         tagName,
-        propDefaults:{
-            upgrade,
-            ifWantsToBe,
-            finale: 'finale',
-            forceVisible: ['template'],
-            virtualProps: ['base', 'forAll', 'puntOn', 'fileName'],
-            proxyPropDefaults:{
-                forAll: ['src', 'href', 'xlink:href']
-            },
-            primaryProp: 'base'
+        propDefaults: {
+            ...propDefaults,
+            forAll: ['src', 'href', 'xlink:href']
         },
-        actions:{
+        propInfo: {
+            ...propInfo
+        }, 
+        actions: {
             hydrate: {
                 ifAllOf: ['forAll', 'base']
             }
         }
     },
-    complexPropDefaults:{
-        controller: BeBased,
-    }
+    superclass: BeBased
 });
 
 register(ifWantsToBe, upgrade, tagName);
