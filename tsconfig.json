@@ -9,7 +9,7 @@
 		"watch": true
 	},
 	"files":[
-		"index.ts"
+		"be-based2.ts"
 	],
 	"exclude":[
 		"node_modules"
