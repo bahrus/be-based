@@ -1,16 +1,15 @@
 import {ActionOnEventConfigs} from 'trans-render/froop/types';
 import {IBE} from 'be-enhanced/types';
 
-export interface EndUserProps{
+export interface EndUserProps extends IBE{
     forAll?: string[],
     base?: string,
     fileName?: string
     puntOn?: string[],
 }
 
-export interface VirtualProps extends EndUserProps, MinimalProxy{
-    //beDecorProps?: BeDecoratedProps,
-    proxy: Element,
+export interface AllProps extends EndUserProps{
+
 }
 
 
@@ -19,18 +18,18 @@ export interface PuntEvent{
     instance: Element,
 }
 
-export type Proxy = Element & VirtualProps;
+export type AP = AllProps;
 
-export interface ProxyProps extends VirtualProps{
-    proxy:  Proxy,
-}
+export type PAP = Partial<AP>;
 
-export type PP = ProxyProps;
+export type ProPAP = Promise<PAP>
 
-export type PA = Partial<PP>;
+export type POA = [PAP | undefined, ActionOnEventConfigs<PAP, Actions>];
+
+export type ProPOA = Promise<POA>
 
 export interface Actions{
-    hydrate(pp: PP): PA;
-    finale(): void;
+    hydrate(self: this): PAP;
+    //finale(): void;
 }
 
