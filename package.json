@@ -1,6 +1,6 @@
 {
   "name": "be-based",
-  "version": "0.0.42",
+  "version": "0.0.43",
   "description": "be-based is a package that contains a client-side web component decorator, a trans-render transformer [TODO], and a HTMLRewriter class [TODO].",
   "main": "be-based.js",
   "module": "be-based.js",
@@ -11,14 +11,14 @@
     "custom element"
   ],
   "dependencies": {
-    "be-enhanced": "0.0.17",
-    "be-hive": "0.0.92",
-    "trans-render": "0.0.680",
-    "xtal-element": "0.0.560"
+    "be-enhanced": "0.0.28",
+    "be-hive": "0.0.103",
+    "trans-render": "0.0.688",
+    "xtal-element": "0.0.566"
   },
   "devDependencies": {
     "may-it-serve": "0.0.5",
-    "@playwright/test": "1.33.0"
+    "@playwright/test": "1.35.0"
   },
   "scripts": {
     "test": "playwright test",
