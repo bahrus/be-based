@@ -1,6 +1,6 @@
 {
   "name": "be-based",
-  "version": "0.0.48",
+  "version": "0.0.49",
   "description": "be-based is a package that contains a client-side web component decorator, a trans-render transformer [TODO], and a HTMLRewriter class [TODO].",
   "main": "be-based.js",
   "module": "be-based.js",
