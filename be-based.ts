@@ -2,7 +2,6 @@ import {BE, propDefaults, propInfo} from 'be-enhanced/BE.js';
 import {BEConfig} from 'be-enhanced/types';
 import {XE} from 'xtal-element/XE.js';
 import {Actions, AllProps, AP, PAP, ProPAP, POA, PuntEvent} from './types';
-import {register} from 'be-hive/register.js';
 
 export class BeBased extends BE<AP, Actions> implements Actions{
     static  override get beConfig(){
@@ -162,9 +161,8 @@ export class BeBased extends BE<AP, Actions> implements Actions{
 
 export interface BeBased extends AllProps{}
 
-const tagName = 'be-based';
-const ifWantsToBe = 'based';
-const upgrade = '*';
+export const tagName = 'be-based';
+
 
 const xe = new XE<AP, Actions>({
     config:{
@@ -185,4 +183,3 @@ const xe = new XE<AP, Actions>({
     superclass: BeBased
 });
 
-register(ifWantsToBe, upgrade, tagName);
