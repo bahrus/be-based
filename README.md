@@ -1,4 +1,6 @@
-# be-based
+# be-based [WIP]
+
+[TODO]  Using MountObserver
 
 be-based is a package that allows a DOM document fragment filled with relative URL paths, to be adjusted based on a base URL. This is quite critical when streaming HTML from a third-party element to a DOM node contained within the Live DOM tree.  be-based plays a critical role in combination with [be-written](https://github.com/bahrus/be-written).
 
