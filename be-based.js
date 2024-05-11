@@ -1,0 +1,56 @@
+import { BE } from 'be-enhanced/BE.js';
+import { MountObserver } from 'mount-observer/MountObserver.js';
+export class BeBased extends BE {
+    hydrate(self) {
+        const { enhancedElement, forAll, base, puntOn, fileName } = self;
+        if (!base.endsWith('/')) {
+            return {
+                base: base + '/',
+            };
+        }
+        const mo = new MountObserver({
+            on: forAll.join(','),
+            do: {
+                mount: (matchingElement) => {
+                    for (const attrib of forAll) {
+                        this.#processEl(matchingElement, attrib, base, fileName);
+                    }
+                }
+            }
+        });
+        return {
+            resolved: true,
+        };
+    }
+    #processEl(node, attrib, base, fileName) {
+        if (!node.hasAttribute(attrib))
+            return;
+        let val = node.getAttribute(attrib);
+        if (val.indexOf('//') !== -1)
+            return;
+        if (val.startsWith('data:'))
+            return;
+        if (val[0] === '#')
+            return;
+        //TODO:  support paths that start with ..
+        //console.log({attrib, base, val, fileName});
+        let newVal;
+        if (val.startsWith('../')) {
+            let split = base.split('/');
+            split.pop();
+            while (val.startsWith('../')) {
+                val = val.substring(3);
+                split.pop();
+            }
+            newVal = split.join('/') + '/' + val;
+            // }else if(val[0] === '#'){
+            //     newVal = base + fileName + val;
+        }
+        else {
+            if (val[0] === '/')
+                val = val.substring(1); // this doesn't seem right - need to start from domain (?)
+            newVal = base + val;
+        }
+        node.setAttribute(attrib, newVal);
+    }
+}

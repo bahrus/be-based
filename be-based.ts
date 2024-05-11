@@ -9,7 +9,7 @@ export class BeBased extends BE<Element> implements Actions{
         if(!base!.endsWith('/')){
             return {
                 base: base + '/',
-            }
+            };
         }
         const mo = new MountObserver({
             on: forAll!.join(','),
@@ -20,7 +20,7 @@ export class BeBased extends BE<Element> implements Actions{
                     }
                 }
             }
-        })
+        });
         return {
             resolved: true,
         }
