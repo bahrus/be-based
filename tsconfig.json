@@ -8,7 +8,7 @@
 		"strict": true
 	},
 	"files":[
-		"legacy/behivior.ts"
+		"behivior.ts"
 	],
 	"exclude":[
 		"node_modules"
