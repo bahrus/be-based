@@ -1,6 +1,5 @@
 # be-based [WIP]
 
-[TODO]  Using MountObserver
 
 be-based is a package that allows a DOM document fragment filled with relative URL paths, to be adjusted based on a base URL. This is quite critical when streaming HTML from a third-party element to a DOM node contained within the Live DOM tree.  be-based plays a critical role in combination with [be-written](https://github.com/bahrus/be-written).
 
@@ -36,23 +35,14 @@ be-based rewrites the attribute within:
 </div>
 ```
 
-## Side service -- Declarative Shadow DOM
-
-*be-based* also takes it upon itself, in the absence of any apparent alternatives, to make the same Declarative Shadow DOM syntax that works when streaming HTML to the browser, to also work while streaming a separate HTML fetch request to a DOM element.
-
-## Side service -- Element Matching
-
-Another service be-based provides is it can be subscribed to for any CSS matches it encounters.  This feature is used by [be-rewritten](https://github.com/bahrus/be-rewritten).
 
 ### As a custom attribute / decorator / behavior
 
-be-based is one of a growing family of [be-decorated](https://github.com/bahrus/be-decorated) web component based custom attributes /  behaviors / decorators / directives.
+be-based is one of a growing family of [be-hive](https://github.com/bahrus/be-hive)/[be-enhanced](https://github.com/bahrus/be-enhanced) web component based custom attributes /  behaviors / decorators / directives.
 
-By referencing be-based.js, elements with attribute be-based will be discovered and transformed.
+By referencing behivior.js, elements with attribute be-based will be discovered and transformed.
 
-Or we can reference index.js, which loads both trPlugin.js (template instantiation plug-in) and be-based.js in parallel.
 
-The element be-based can decorate is not limited to template elements.  It can be applied to any DOM element.
 
 If using [stream-orator](https://github.com/bahrus/stream-orator) to stream HTML to a target element, be-based can be used to watch all new elements, and apply all the rules as they are discovered.
 
