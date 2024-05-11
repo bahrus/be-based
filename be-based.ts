@@ -9,7 +9,7 @@ export class BeBased extends BE<Element> implements Actions{
         propInfo: {
             ...(beCnfg.propInfo),
             forAll:{
-                def: ['src', 'href', 'xlink:href']
+                def: ['src', 'href', 'xlink\\:href']
             },
             base:{}
         },
@@ -20,7 +20,7 @@ export class BeBased extends BE<Element> implements Actions{
         }
     };
     hydrate(self: this): PAP {
-        const {forAll, base, fileName} = self;
+        const {forAll, base, fileName, enhancedElement} = self;
         if(!base!.endsWith('/')){
             return {
                 base: base + '/',
@@ -36,6 +36,7 @@ export class BeBased extends BE<Element> implements Actions{
                 }
             }
         });
+        mo.observe(enhancedElement);
         return {
             resolved: true,
         }
