@@ -1,15 +1,30 @@
+import { config as beCnfg } from 'be-enhanced/config.js';
 import { BE } from 'be-enhanced/BE.js';
 import { MountObserver } from 'mount-observer/MountObserver.js';
 export class BeBased extends BE {
+    static config = {
+        propInfo: {
+            ...(beCnfg.propInfo),
+            forAll: {
+                def: ['src', 'href', 'xlink:href']
+            },
+            base: {}
+        },
+        actions: {
+            hydrate: {
+                ifAllOf: ['forAll', 'base']
+            }
+        }
+    };
     hydrate(self) {
-        const { enhancedElement, forAll, base, puntOn, fileName } = self;
+        const { forAll, base, fileName } = self;
         if (!base.endsWith('/')) {
             return {
                 base: base + '/',
             };
         }
         const mo = new MountObserver({
-            on: forAll.join(','),
+            on: forAll.map(x => `[${x}]`).join(','),
             do: {
                 mount: (matchingElement) => {
                     for (const attrib of forAll) {

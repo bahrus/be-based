@@ -1,18 +1,33 @@
 import {config as beCnfg} from 'be-enhanced/config.js';
 import {BE, BEConfig} from 'be-enhanced/BE.js';
-import {Actions, PAP, AllProps} from './types';
+import {Actions, PAP, AllProps, AP} from './types';
 import {MountObserver} from 'mount-observer/MountObserver.js';
+import {IEnhancement,  BEAllProps} from 'trans-render/be/types';
 
 export class BeBased extends BE<Element> implements Actions{
+    static override config: BEConfig<AP & BEAllProps, Actions & IEnhancement, any> = {
+        propInfo: {
+            ...(beCnfg.propInfo),
+            forAll:{
+                def: ['src', 'href', 'xlink:href']
+            },
+            base:{}
+        },
+        actions:{
+            hydrate:{
+                ifAllOf: ['forAll', 'base']
+            }
+        }
+    };
     hydrate(self: this): PAP {
-        const {enhancedElement, forAll, base, puntOn, fileName} = self;
+        const {forAll, base, fileName} = self;
         if(!base!.endsWith('/')){
             return {
                 base: base + '/',
             };
         }
         const mo = new MountObserver({
-            on: forAll!.join(','),
+            on: forAll!.map(x => `[${x}]`).join(','),
             do: {
                 mount: (matchingElement) => {
                     for(const attrib of forAll!){
