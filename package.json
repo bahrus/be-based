@@ -13,6 +13,7 @@
   "dependencies": {
     "be-enhanced": "0.0.82",
     "be-hive": "0.0.148",
+    "mount-observer": "0.0.20",
     "trans-render": "0.0.764",
     "xtal-element": "0.0.602"
   },
