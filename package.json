@@ -12,7 +12,7 @@
   ],
   "dependencies": {
     "be-enhanced": "0.0.83",
-    "be-hive": "0.0.149",
+    "be-hive": "0.0.150",
     "mount-observer": "0.0.20",
     "trans-render": "0.0.765",
     "xtal-element": "0.0.602"
