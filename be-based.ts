@@ -48,8 +48,6 @@ export class BeBased extends BE<Element> implements Actions{
         if(val.indexOf('//') !== -1) return;
         if(val.startsWith('data:')) return;
         if(val[0] === '#') return;
-        //TODO:  support paths that start with ..
-        //console.log({attrib, base, val, fileName});
         let newVal: string | undefined;
         if(val.startsWith('../')){
             let split = base.split('/');
@@ -59,8 +57,6 @@ export class BeBased extends BE<Element> implements Actions{
                 split.pop();
             }
             newVal = split.join('/') + '/' + val;
-        // }else if(val[0] === '#'){
-        //     newVal = base + fileName + val;
         }else{
             if(val[0] ==='/') val = val.substring(1); // this doesn't seem right - need to start from domain (?)
             newVal = base + val;

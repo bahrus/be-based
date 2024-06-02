@@ -1,17 +1,18 @@
-import './behance.js';
 import { BeHive } from 'be-hive/be-hive.js';
-BeHive.registry.register({
-    base: 'be-based',
-    enhPropKey: 'beBased',
+import { MountObserver } from 'mount-observer/MountObserver.js';
+const base = 'be-based';
+export const emc = {
+    base,
     map: {
         '0.0': 'base'
     },
-    do: {
-        mount: {
-            import: async () => {
-                const { BeBased } = await import('./be-based.js');
-                return BeBased;
-            }
-        }
+    enhPropKey: 'beBased',
+    importEnh: async () => {
+        const { BeBased } = await import('./behance.js');
+        return BeBased;
     }
-});
+};
+const mose = document.createElement('script');
+mose.id = base;
+mose.synConfig = emc;
+MountObserver.synthesize(document, BeHive, mose);

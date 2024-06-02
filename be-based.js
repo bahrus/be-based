@@ -48,8 +48,6 @@ export class BeBased extends BE {
             return;
         if (val[0] === '#')
             return;
-        //TODO:  support paths that start with ..
-        //console.log({attrib, base, val, fileName});
         let newVal;
         if (val.startsWith('../')) {
             let split = base.split('/');
@@ -59,8 +57,6 @@ export class BeBased extends BE {
                 split.pop();
             }
             newVal = split.join('/') + '/' + val;
-            // }else if(val[0] === '#'){
-            //     newVal = base + fileName + val;
         }
         else {
             if (val[0] === '/')

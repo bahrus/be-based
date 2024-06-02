@@ -11,14 +11,14 @@
     "custom element"
   ],
   "dependencies": {
-    "be-enhanced": "0.0.83",
-    "be-hive": "0.0.150",
-    "mount-observer": "0.0.20",
-    "trans-render": "0.0.765"
+    "be-enhanced": "0.0.95",
+    "be-hive": "0.0.168",
+    "mount-observer": "0.0.26",
+    "trans-render": "0.0.778"
   },
   "devDependencies": {
     "may-it-serve": "0.0.6",
-    "@playwright/test": "1.44.0"
+    "@playwright/test": "1.44.1"
   },
   "scripts": {
     "test": "playwright test",
