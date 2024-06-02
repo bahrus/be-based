@@ -11,8 +11,8 @@
     "custom element"
   ],
   "dependencies": {
-    "be-enhanced": "0.0.95",
-    "be-hive": "0.0.168",
+    "be-enhanced": "0.0.96",
+    "be-hive": "0.0.169",
     "mount-observer": "0.0.26",
     "trans-render": "0.0.778"
   },
