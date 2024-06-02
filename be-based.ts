@@ -19,6 +19,7 @@ export class BeBased extends BE<Element> implements Actions{
             }
         }
     };
+    #mo: MountObserver | undefined;
     hydrate(self: this): PAP {
         const {forAll, base, fileName, enhancedElement} = self;
         if(!base!.endsWith('/')){
@@ -37,6 +38,7 @@ export class BeBased extends BE<Element> implements Actions{
             }
         });
         mo.observe(enhancedElement);
+        this.#mo = mo;
         return {
             resolved: true,
         }
@@ -62,6 +64,12 @@ export class BeBased extends BE<Element> implements Actions{
             newVal = base + val;
         }
         (node as Element).setAttribute(attrib, newVal);
+    }
+    disconnect(el: Element){
+        if(this.#mo !== undefined) this.#mo.disconnect(el)
+    }
+    override async detach(el: Element) {
+        this.disconnect(el);
     }
 }
 

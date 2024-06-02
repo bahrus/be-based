@@ -16,6 +16,7 @@ export class BeBased extends BE {
             }
         }
     };
+    #mo;
     hydrate(self) {
         const { forAll, base, fileName, enhancedElement } = self;
         if (!base.endsWith('/')) {
@@ -34,6 +35,7 @@ export class BeBased extends BE {
             }
         });
         mo.observe(enhancedElement);
+        this.#mo = mo;
         return {
             resolved: true,
         };
@@ -64,5 +66,12 @@ export class BeBased extends BE {
             newVal = base + val;
         }
         node.setAttribute(attrib, newVal);
+    }
+    disconnect(el) {
+        if (this.#mo !== undefined)
+            this.#mo.disconnect(el);
+    }
+    async detach(el) {
+        this.disconnect(el);
     }
 }
