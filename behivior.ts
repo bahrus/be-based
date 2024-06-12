@@ -9,7 +9,7 @@ export const emc: EMC = {
     },
     enhPropKey: 'beBased',
     importEnh: async () => {
-        const {BeBased} = await import('./behance.js');
+        const {BeBased} = await import('./be-based.js');
         return BeBased;
     }
 };

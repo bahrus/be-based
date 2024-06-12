@@ -4,7 +4,7 @@ import {Actions, PAP, AllProps, AP} from './types';
 import {MountObserver} from 'mount-observer/MountObserver.js';
 import {IEnhancement,  BEAllProps} from 'trans-render/be/types';
 
-export class BeBased extends BE<Element> implements Actions{
+class BeBased extends BE<Element> implements Actions{
     static override config: BEConfig<AP & BEAllProps, Actions & IEnhancement, any> = {
         propInfo: {
             ...(beCnfg.propInfo),
@@ -73,4 +73,8 @@ export class BeBased extends BE<Element> implements Actions{
     }
 }
 
-export interface BeBased extends AllProps{}
+interface BeBased extends AllProps{}
+
+await BeBased.bootUp();
+
+export {BeBased}

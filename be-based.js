@@ -1,7 +1,7 @@
 import { config as beCnfg } from 'be-enhanced/config.js';
 import { BE } from 'be-enhanced/BE.js';
 import { MountObserver } from 'mount-observer/MountObserver.js';
-export class BeBased extends BE {
+class BeBased extends BE {
     static config = {
         propInfo: {
             ...(beCnfg.propInfo),
@@ -75,3 +75,5 @@ export class BeBased extends BE {
         this.disconnect(el);
     }
 }
+await BeBased.bootUp();
+export { BeBased };
