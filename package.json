@@ -11,10 +11,10 @@
     "custom element"
   ],
   "dependencies": {
-    "be-enhanced": "0.0.114",
-    "be-hive": "0.0.195",
+    "be-enhanced": "0.0.116",
+    "be-hive": "0.0.196",
     "mount-observer": "0.0.29",
-    "trans-render": "0.0.801"
+    "trans-render": "0.0.802"
   },
   "devDependencies": {
     "may-it-serve": "0.0.8",

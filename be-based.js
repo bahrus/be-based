@@ -1,7 +1,18 @@
+// @ts-check
 import { config as beCnfg } from 'be-enhanced/config.js';
 import { BE } from 'be-enhanced/BE.js';
+/** @import {BEConfig} from './node_modules/be-enhanced/types.d.ts' */
+/** @import {Actions, PAP, AllProps, AP} from './types.d.ts' */;
 import { MountObserver } from 'mount-observer/MountObserver.js';
+/** @import {IEnhancement,  BEAllProps} from './node_modules/trans-render/be/types.d.ts' */;
+
+/**
+ * @implements {Actions}
+ */
 class BeBased extends BE {
+    /**
+     * @type {BEConfig<AP & BEAllProps, Actions & IEnhancement, any>}
+     */
     static config = {
         propInfo: {
             ...(beCnfg.propInfo),
@@ -17,6 +28,12 @@ class BeBased extends BE {
         }
     };
     #mo;
+
+    /**
+     * 
+     * @param {AP & BEAllProps} self 
+     * @returns 
+     */
     hydrate(self) {
         const { forAll, base, fileName, enhancedElement } = self;
         if (!base.endsWith('/')) {
@@ -40,13 +57,22 @@ class BeBased extends BE {
             resolved: true,
         };
     }
+
+    /**
+     * 
+     * @param {Element} node 
+     * @param {string} attrib 
+     * @param {string} base 
+     * @param {string} fileName 
+     * @returns 
+     */
     #processEl(node, attrib, base, fileName) {
         if (!node.hasAttribute(attrib))
             return;
         let val = node.getAttribute(attrib);
-        if (val.indexOf('//') !== -1)
+        if (val?.indexOf('//') !== -1)
             return;
-        if (val.startsWith('data:'))
+        if (val?.startsWith('data:'))
             return;
         if (val[0] === '#')
             return;
@@ -67,10 +93,18 @@ class BeBased extends BE {
         }
         node.setAttribute(attrib, newVal);
     }
+    /**
+     * 
+     * @param {Element} el 
+     */
     disconnect(el) {
         if (this.#mo !== undefined)
             this.#mo.disconnect(el);
     }
+    /**
+     * 
+     * @param {Element} el 
+     */
     async detach(el) {
         this.disconnect(el);
     }
