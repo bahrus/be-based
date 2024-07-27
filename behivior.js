@@ -1,5 +1,9 @@
 import { BeHive, seed, MountObserver } from 'be-hive/be-hive.js';
+/** @import {EMC} from './node_modules/trans-render/be/types.d.ts */
 const base = 'be-based';
+/**
+ * @type {EMC}
+ */
 export const emc = {
     base,
     map: {
