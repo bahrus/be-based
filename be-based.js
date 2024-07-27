@@ -8,6 +8,7 @@ import { MountObserver } from 'mount-observer/MountObserver.js';
 
 /**
  * @implements {Actions}
+ * 
  */
 class BeBased extends BE {
     /**
@@ -109,5 +110,6 @@ class BeBased extends BE {
         this.disconnect(el);
     }
 }
+
 await BeBased.bootUp();
 export { BeBased };
