@@ -1,15 +1,14 @@
-import {ActionOnEventConfigs} from 'trans-render/froop/types';
-import {IEnhancement, BEAllProps} from 'trans-render/be/types';
+import {IEnhancement, BEAllProps} from './node_modules/trans-render/be/types';
 
 export interface EndUserProps extends IEnhancement{
-    forAll?: string[],
+    forAll?: Array<string>,
     base?: string,
     fileName?: string
-    puntOn?: string[],
+    puntOn?: Array<string>,
 }
 
 export interface AllProps extends EndUserProps{
-
+    forAll: Array<string>,
 }
 
 
@@ -24,12 +23,10 @@ export type PAP = Partial<AP>;
 
 export type ProPAP = Promise<PAP>
 
-export type POA = [PAP | undefined, ActionOnEventConfigs<PAP, Actions>];
 
-export type ProPOA = Promise<POA>
 
 export interface Actions{
-    hydrate(self: this): PAP;
+    hydrate(self: AP & BEAllProps): PAP;
     //finale(): void;
 }
 

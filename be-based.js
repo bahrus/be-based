@@ -36,13 +36,13 @@ class BeBased extends BE {
      */
     hydrate(self) {
         const { forAll, base, fileName, enhancedElement } = self;
-        if (!base.endsWith('/')) {
+        if (!base?.endsWith('/')) {
             return {
                 base: base + '/',
             };
         }
         const mo = new MountObserver({
-            on: forAll.map(x => `[${x}]`).join(','),
+            on: forAll?.map(x => `[${x}]`).join(','),
             do: {
                 mount: (matchingElement) => {
                     for (const attrib of forAll) {
@@ -53,7 +53,7 @@ class BeBased extends BE {
         });
         mo.observe(enhancedElement);
         this.#mo = mo;
-        return {
+        return /** @type {PAP} */{
             resolved: true,
         };
     }
@@ -63,7 +63,7 @@ class BeBased extends BE {
      * @param {Element} node 
      * @param {string} attrib 
      * @param {string} base 
-     * @param {string} fileName 
+     * @param {string=} fileName 
      * @returns 
      */
     #processEl(node, attrib, base, fileName) {
