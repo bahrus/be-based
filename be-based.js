@@ -1,10 +1,9 @@
 // @ts-check
 import { config as beCnfg } from 'be-enhanced/config.js';
 import { BE } from 'be-enhanced/BE.js';
-/** @import {BEConfig} from './node_modules/be-enhanced/types.d.ts' */
+/** @import {BEConfig, IEnhancement,  BEAllProps} from './node_modules/be-enhanced/types.d.ts' */
 /** @import {Actions, PAP, AllProps, AP} from './types.d.ts' */;
 import { MountObserver } from 'mount-observer/MountObserver.js';
-/** @import {IEnhancement,  BEAllProps} from './node_modules/trans-render/be/types.d.ts' */;
 
 /**
  * @implements {Actions}
